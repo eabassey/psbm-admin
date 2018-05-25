@@ -18,63 +18,54 @@ import { FuseMainModule } from './main/main.module';
 import { AppStoreModule } from './store/store.module';
 
 const appRoutes: Routes = [
-    {
-        path        : 'apps',
-        loadChildren: './main/content/apps/apps.module#FuseAppsModule'
-    },
-    {
-        path        : 'pages',
-        loadChildren: './main/content/pages/pages.module#FusePagesModule'
-    },
-    {
-        path        : 'ui',
-        loadChildren: './main/content/ui/ui.module#FuseUIModule'
-    },
-    {
-        path        : 'services',
-        loadChildren: './main/content/services/services.module#FuseServicesModule'
-    },
-    {
-        path        : 'components',
-        loadChildren: './main/content/components/components.module#FuseComponentsModule'
-    },
-    {
-        path        : 'components-third-party',
-        loadChildren: './main/content/components-third-party/components-third-party.module#FuseComponentsThirdPartyModule'
-    },
-    {
-        path      : '**',
-        redirectTo: 'apps/dashboards/analytics'
-    }
+  {
+    path: 'apps',
+    loadChildren: './main/content/apps/apps.module#FuseAppsModule'
+  },
+  {
+    path: 'pages',
+    loadChildren: './main/content/pages/pages.module#FusePagesModule'
+  },
+  {
+    path: 'ui',
+    loadChildren: './main/content/ui/ui.module#FuseUIModule'
+  },
+  {
+    path: 'services',
+    loadChildren: './main/content/services/services.module#FuseServicesModule'
+  },
+  {
+    path: 'components',
+    loadChildren:
+      './main/content/components/components.module#FuseComponentsModule'
+  },
+  {
+    path: '**',
+    redirectTo: 'apps/dashboards/analytics'
+  }
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports     : [
-        BrowserModule,
-        BrowserAnimationsModule,
-        HttpClientModule,
-        RouterModule.forRoot(appRoutes),
+  declarations: [AppComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    RouterModule.forRoot(appRoutes),
 
-        TranslateModule.forRoot(),
-        InMemoryWebApiModule.forRoot(FuseFakeDbService, {
-            delay             : 0,
-            passThruUnknownUrl: true
-        }),
+    TranslateModule.forRoot(),
+    InMemoryWebApiModule.forRoot(FuseFakeDbService, {
+      delay: 0,
+      passThruUnknownUrl: true
+    }),
 
-        // Fuse Main and Shared modules
-        FuseModule.forRoot(fuseConfig),
-        FuseSharedModule,
+    // Fuse Main and Shared modules
+    FuseModule.forRoot(fuseConfig),
+    FuseSharedModule,
 
-        AppStoreModule,
-        FuseMainModule
-    ],
-    bootstrap   : [
-        AppComponent
-    ]
+    AppStoreModule,
+    FuseMainModule
+  ],
+  bootstrap: [AppComponent]
 })
-export class AppModule
-{
-}
+export class AppModule {}

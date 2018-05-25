@@ -738,34 +738,5 @@ export const navigation = [
         url: '/components/widget'
       }
     ]
-  },
-  {
-    id: '3rd-party-components',
-    title: '3rd Party components',
-    type: 'group',
-    icon: 'settings_input_component',
-    children: [
-      {
-        id: 'datatables',
-        title: 'Datatables',
-        type: 'collapse',
-        icon: 'border_all',
-        children: [
-          {
-            id: 'ngxdatatable',
-            title: 'ngx-datatable',
-            type: 'item',
-            url: '/components-third-party/datatables/ngx-datatable'
-          }
-        ]
-      },
-      {
-        id: 'google-maps',
-        title: 'Google Maps',
-        type: 'item',
-        icon: 'place',
-        url: '/components-third-party/google-maps'
-      }
-    ]
   }
 ];
