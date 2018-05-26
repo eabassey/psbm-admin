@@ -17,28 +17,8 @@ const routes = [
       './dashboards/project/project.module#FuseProjectDashboardModule'
   },
   {
-    path: 'mail-ngrx',
-    loadChildren: './mail-ngrx/mail.module#FuseMailNgrxModule'
-  },
-  {
-    path: 'chat',
-    loadChildren: './chat/chat.module#FuseChatModule'
-  },
-  {
-    path: 'calendar',
-    loadChildren: './calendar/calendar.module#FuseCalendarModule'
-  },
-  {
     path: 'e-commerce',
     loadChildren: './e-commerce/e-commerce.module#FuseEcommerceModule'
-  },
-  {
-    path: 'todo',
-    loadChildren: './todo/todo.module#FuseTodoModule'
-  },
-  {
-    path: 'file-manager',
-    loadChildren: './file-manager/file-manager.module#FuseFileManagerModule'
   },
   {
     path: 'contacts',
