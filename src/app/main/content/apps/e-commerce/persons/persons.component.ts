@@ -8,15 +8,15 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
 
-import { EcommerceProductsService } from './products.service';
+import { PersonsService } from './persons.service';
 
 @Component({
-  selector: 'fuse-e-commerce-products',
-  templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss'],
+  selector: 'fuse-persons',
+  templateUrl: './persons.component.html',
+  styleUrls: ['./persons.component.scss'],
   animations: fuseAnimations
 })
-export class FuseEcommerceProductsComponent implements OnInit {
+export class PersonsComponent implements OnInit {
   dataSource: FilesDataSource | null;
   displayedColumns = [
     'select',
@@ -33,11 +33,11 @@ export class FuseEcommerceProductsComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   selection = new SelectionModel<any>(true, []);
-  constructor(private productsService: EcommerceProductsService) {}
+  constructor(private personsService: PersonsService) {}
 
   ngOnInit() {
     this.dataSource = new FilesDataSource(
-      this.productsService,
+      this.personsService,
       this.paginator,
       this.sort
     );
@@ -89,18 +89,18 @@ export class FilesDataSource extends DataSource<any> {
   }
 
   constructor(
-    private productsService: EcommerceProductsService,
+    private personsService: PersonsService,
     private _paginator: MatPaginator,
     private _sort: MatSort
   ) {
     super();
-    this.filteredData = this.productsService.products;
+    this.filteredData = this.personsService.persons;
   }
 
   /** Connect function called by the table to retrieve one stream containing the data to render. */
   connect(): Observable<any[]> {
     const displayDataChanges = [
-      this.productsService.onProductsChanged,
+      this.personsService.onPersonsChanged,
       this._paginator.page,
       this._filterChange,
       this._sort.sortChange
@@ -108,7 +108,7 @@ export class FilesDataSource extends DataSource<any> {
 
     return merge(...displayDataChanges).pipe(
       map(() => {
-        let data = this.productsService.products.slice();
+        let data = this.personsService.persons.slice();
 
         data = this.filterData(data);
 

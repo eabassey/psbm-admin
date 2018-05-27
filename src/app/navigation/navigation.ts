@@ -28,8 +28,8 @@ export const navigation = [
         ]
       },
       {
-        id: 'e-commerce',
-        title: 'E-Commerce',
+        id: 'membership',
+        title: 'Membership',
         translate: 'NAV.ECOMMERCE',
         type: 'collapse',
         icon: 'shopping_cart',
@@ -41,17 +41,45 @@ export const navigation = [
             url: '/apps/e-commerce/dashboard'
           },
           {
-            id: 'products',
-            title: 'Products',
+            id: 'persons',
+            title: 'Adult Members',
             type: 'item',
-            url: '/apps/e-commerce/products',
-            exactMatch: true
+            url: '/apps/e-commerce/products'
+            // exactMatch: true
           },
           {
-            id: 'productDetail',
-            title: 'Product Detail',
+            id: 'youth',
+            title: 'Youth Members',
             type: 'item',
-            url: '/apps/e-commerce/products/1/printed-dress',
+            url: '/apps/e-commerce/products2'
+            // exactMatch: true
+          },
+          {
+            id: 'children',
+            title: 'Children',
+            type: 'item'
+            url: '/apps/e-commerce/products3'
+            // exactMatch: true
+          },
+          {
+            id: 'visitors',
+            title: 'Visitors',
+            type: 'item',
+            url: '/apps/e-commerce/products4'
+            // exactMatch: true
+          },
+          {
+            id: 'converts',
+            title: 'New Converts',
+            type: 'item',
+            url: '/apps/e-commerce/products5'
+            // exactMatch: true
+          },
+          {
+            id: 'presbyters',
+            title: 'Presbyters',
+            type: 'item',
+            url: '/apps/e-commerce/products6',
             exactMatch: true
           }
         ]

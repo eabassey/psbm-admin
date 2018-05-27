@@ -25,10 +25,10 @@ import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 
 import { FuseEcommerceDashboardComponent } from './dashboard/dashboard.component';
 import { EcommerceDashboardService } from './dashboard/dashboard.service';
-import { FuseEcommerceProductsComponent } from './products/products.component';
-import { EcommerceProductsService } from './products/products.service';
-import { FuseEcommerceProductComponent } from './product/product.component';
-import { EcommerceProductService } from './product/product.service';
+import { PersonsComponent } from './persons/persons.component';
+import { PersonsService } from './persons/persons.service';
+import { PersonComponent } from './person/person.component';
+import { PersonService } from './person/person.service';
 
 const routes: Routes = [
   {
@@ -40,23 +40,23 @@ const routes: Routes = [
   },
   {
     path: 'products',
-    component: FuseEcommerceProductsComponent,
+    component: PersonsComponent,
     resolve: {
-      data: EcommerceProductsService
+      data: PersonsService
     }
   },
   {
     path: 'products/:id',
-    component: FuseEcommerceProductComponent,
+    component: PersonComponent,
     resolve: {
-      data: EcommerceProductService
+      data: PersonService
     }
   },
   {
     path: 'products/:id/:handle',
-    component: FuseEcommerceProductComponent,
+    component: PersonComponent,
     resolve: {
-      data: EcommerceProductService
+      data: PersonService
     }
   }
 ];
@@ -64,8 +64,8 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     FuseEcommerceDashboardComponent,
-    FuseEcommerceProductsComponent,
-    FuseEcommerceProductComponent
+    PersonsComponent,
+    PersonComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -92,10 +92,6 @@ const routes: Routes = [
     FuseSharedModule,
     FuseWidgetModule
   ],
-  providers: [
-    EcommerceDashboardService,
-    EcommerceProductsService,
-    EcommerceProductService
-  ]
+  providers: [EcommerceDashboardService, PersonsService, PersonService]
 })
 export class FuseEcommerceModule {}
