@@ -8,6 +8,9 @@ import { FuseNavigationService } from '@fuse/components/navigation/navigation.se
 import { locale as navigationEnglish } from './navigation/i18n/en';
 import { locale as navigationTurkish } from './navigation/i18n/tr';
 
+import { AdalService } from 'adal-angular4';
+import { environment } from 'environments/environment';
+
 @Component({
     selector   : 'fuse-root',
     templateUrl: './app.component.html',
@@ -19,9 +22,12 @@ export class AppComponent
         private translate: TranslateService,
         private fuseNavigationService: FuseNavigationService,
         private fuseSplashScreen: FuseSplashScreenService,
-        private fuseTranslationLoader: FuseTranslationLoaderService
+        private fuseTranslationLoader: FuseTranslationLoaderService,
+        private adalService: AdalService
     )
     {
+        adalService.init(environment.config);
+        
         // Add languages
         this.translate.addLangs(['en', 'tr']);
 

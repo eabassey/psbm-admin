@@ -17,27 +17,44 @@ import { FuseFakeDbService } from './fuse-fake-db/fuse-fake-db.service';
 import { FuseMainModule } from './main/main.module';
 import { AppStoreModule } from './store/store.module';
 
+import { AdalService, AdalGuard, AdalInterceptor } from 'adal-angular4';
+
 const appRoutes: Routes = [
   {
+    path: '',
+    redirectTo: 'home',
+    // redirectTo: 'apps/dashboards/analytics',
+    pathMatch: 'full'
+    // canActivate: [AdalGuard]
+  },
+  {
+    path: 'home',
+    loadChildren: './home/home.module#HomeModule'
+  },
+  {
     path: 'apps',
-    loadChildren: './main/content/apps/apps.module#FuseAppsModule'
+    loadChildren: './main/content/apps/apps.module#FuseAppsModule',
+    canActivate: [AdalGuard]
   },
   {
     path: 'pages',
-    loadChildren: './main/content/pages/pages.module#FusePagesModule'
+    loadChildren: './main/content/pages/pages.module#FusePagesModule',
+    canActivate: [AdalGuard]
   },
   {
     path: 'services',
-    loadChildren: './main/content/services/services.module#FuseServicesModule'
+    loadChildren: './main/content/services/services.module#FuseServicesModule',
+    canActivate: [AdalGuard]
   },
   {
     path: 'components',
     loadChildren:
-      './main/content/components/components.module#FuseComponentsModule'
+      './main/content/components/components.module#FuseComponentsModule',
+    canActivate: [AdalGuard]
   },
   {
     path: '**',
-    redirectTo: 'apps/dashboards/analytics'
+    redirectTo: '/home'
   }
 ];
 
@@ -62,6 +79,7 @@ const appRoutes: Routes = [
     AppStoreModule,
     FuseMainModule
   ],
+  providers: [AdalService, AdalGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
