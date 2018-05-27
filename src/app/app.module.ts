@@ -33,24 +33,24 @@ const appRoutes: Routes = [
   },
   {
     path: 'apps',
-    loadChildren: './main/content/apps/apps.module#FuseAppsModule',
-    canActivate: [AdalGuard]
+    loadChildren: './main/content/apps/apps.module#FuseAppsModule'
+    // canActivate: [AdalGuard]
   },
   {
     path: 'pages',
-    loadChildren: './main/content/pages/pages.module#FusePagesModule',
-    canActivate: [AdalGuard]
+    loadChildren: './main/content/pages/pages.module#FusePagesModule'
+    // canActivate: [AdalGuard]
   },
   {
     path: 'services',
-    loadChildren: './main/content/services/services.module#FuseServicesModule',
-    canActivate: [AdalGuard]
+    loadChildren: './main/content/services/services.module#FuseServicesModule'
+    // canActivate: [AdalGuard]
   },
   {
     path: 'components',
     loadChildren:
-      './main/content/components/components.module#FuseComponentsModule',
-    canActivate: [AdalGuard]
+      './main/content/components/components.module#FuseComponentsModule'
+    // canActivate: [AdalGuard]
   },
   {
     path: '**',
