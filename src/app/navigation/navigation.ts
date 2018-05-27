@@ -53,20 +53,6 @@ export const navigation = [
             type: 'item',
             url: '/apps/e-commerce/products/1/printed-dress',
             exactMatch: true
-          },
-          {
-            id: 'orders',
-            title: 'Orders',
-            type: 'item',
-            url: '/apps/e-commerce/orders',
-            exactMatch: true
-          },
-          {
-            id: 'orderDetail',
-            title: 'Order Detail',
-            type: 'item',
-            url: '/apps/e-commerce/orders/1',
-            exactMatch: true
           }
         ]
       },

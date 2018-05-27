@@ -29,10 +29,6 @@ import { FuseEcommerceProductsComponent } from './products/products.component';
 import { EcommerceProductsService } from './products/products.service';
 import { FuseEcommerceProductComponent } from './product/product.component';
 import { EcommerceProductService } from './product/product.service';
-import { FuseEcommerceOrdersComponent } from './orders/orders.component';
-import { EcommerceOrdersService } from './orders/orders.service';
-import { FuseEcommerceOrderComponent } from './order/order.component';
-import { EcommerceOrderService } from './order/order.service';
 
 const routes: Routes = [
   {
@@ -62,20 +58,6 @@ const routes: Routes = [
     resolve: {
       data: EcommerceProductService
     }
-  },
-  {
-    path: 'orders',
-    component: FuseEcommerceOrdersComponent,
-    resolve: {
-      data: EcommerceOrdersService
-    }
-  },
-  {
-    path: 'orders/:id',
-    component: FuseEcommerceOrderComponent,
-    resolve: {
-      data: EcommerceOrderService
-    }
   }
 ];
 
@@ -83,9 +65,7 @@ const routes: Routes = [
   declarations: [
     FuseEcommerceDashboardComponent,
     FuseEcommerceProductsComponent,
-    FuseEcommerceProductComponent,
-    FuseEcommerceOrdersComponent,
-    FuseEcommerceOrderComponent
+    FuseEcommerceProductComponent
   ],
   imports: [
     RouterModule.forChild(routes),
@@ -115,9 +95,7 @@ const routes: Routes = [
   providers: [
     EcommerceDashboardService,
     EcommerceProductsService,
-    EcommerceProductService,
-    EcommerceOrdersService,
-    EcommerceOrderService
+    EcommerceProductService
   ]
 })
 export class FuseEcommerceModule {}
