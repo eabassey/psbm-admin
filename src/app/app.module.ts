@@ -18,23 +18,20 @@ import { FuseMainModule } from './main/main.module';
 import { AppStoreModule } from './store/store.module';
 
 import { AdalService, AdalGuard, AdalInterceptor } from 'adal-angular4';
+import { NoAuthGuard } from './auth/guards/no-auth.guard';
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'pages/home',
     // redirectTo: 'apps/dashboards/analytics',
+    // canActivate: [NoAuthGuard],
     pathMatch: 'full'
-    // canActivate: [AdalGuard]
-  },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomeModule'
   },
   {
     path: 'apps',
-    loadChildren: './main/content/apps/apps.module#FuseAppsModule'
-    // canActivate: [AdalGuard]
+    loadChildren: './main/content/apps/apps.module#FuseAppsModule',
+    canActivate: [AdalGuard]
   },
   {
     path: 'pages',
@@ -43,18 +40,18 @@ const appRoutes: Routes = [
   },
   {
     path: 'services',
-    loadChildren: './main/content/services/services.module#FuseServicesModule'
-    // canActivate: [AdalGuard]
+    loadChildren: './main/content/services/services.module#FuseServicesModule',
+    canActivate: [AdalGuard]
   },
   {
     path: 'components',
     loadChildren:
-      './main/content/components/components.module#FuseComponentsModule'
-    // canActivate: [AdalGuard]
+      './main/content/components/components.module#FuseComponentsModule',
+    canActivate: [AdalGuard]
   },
   {
     path: '**',
-    redirectTo: '/home'
+    redirectTo: 'pages/home'
   }
 ];
 
@@ -79,7 +76,7 @@ const appRoutes: Routes = [
     AppStoreModule,
     FuseMainModule
   ],
-  providers: [AdalService, AdalGuard],
+  providers: [AdalService, AdalGuard, NoAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

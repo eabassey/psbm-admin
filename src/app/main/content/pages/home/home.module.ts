@@ -2,12 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { Routes, RouterModule } from '@angular/router';
+import { NoAuthGuard } from '../../../../auth/guards/no-auth.guard';
 
-const routes: Routes = [
+const routes = [
   {
-    path: '',
+    path: 'home',
     component: HomeComponent,
-    pathMatch: 'full'
+    canActivate: [NoAuthGuard]
   }
 ];
 @NgModule({

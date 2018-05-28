@@ -57,7 +57,7 @@ export const navigation = [
           {
             id: 'children',
             title: 'Children',
-            type: 'item'
+            type: 'item',
             url: '/apps/e-commerce/products3'
             // exactMatch: true
           },

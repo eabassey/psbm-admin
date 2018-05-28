@@ -112,8 +112,16 @@ export class FuseToolbarComponent implements OnInit {
     this.translate.use(lang.id);
   }
 
-  login() {
-    this.adalService.login();
+  // login() {
+  //   this.adalService.login();
+  // }
+
+  get userName() {
+    const profile = this.adalService.userInfo.profile;
+    const { given_name, family_name } = profile
+      ? profile
+      : { given_name: '', family_name: '' };
+    return `${given_name} ${family_name}`;
   }
 
   logout() {

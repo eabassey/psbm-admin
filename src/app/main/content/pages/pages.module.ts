@@ -6,9 +6,13 @@ import { MaintenanceModule } from './maintenance/maintenence.module';
 import { ProfileModule } from './profile/profile.module';
 import { FaqModule } from './faq/faq.module';
 import { KnowledgeBaseModule } from './knowledge-base/knowledge-base.module';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   imports: [
+    // Landing Page
+    HomeModule,
+
     // Errors
     Error404Module,
     Error500Module,
