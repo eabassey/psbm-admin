@@ -32,7 +32,7 @@ export const navigation = [
         title: 'Membership',
         translate: 'NAV.ECOMMERCE',
         type: 'collapse',
-        icon: 'shopping_cart',
+        icon: 'people',
         children: [
           {
             id: 'dashboard',
@@ -83,57 +83,15 @@ export const navigation = [
             exactMatch: true
           }
         ]
-      },
-      {
-        id: 'contacts',
-        title: 'Contacts',
-        translate: 'NAV.CONTACTS',
-        type: 'item',
-        icon: 'account_box',
-        url: '/apps/contacts'
       }
     ]
   },
   {
-    id: 'pages',
-    title: 'Pages',
+    id: 'help',
+    title: 'Help',
     type: 'group',
     icon: 'pages',
     children: [
-      {
-        id: 'errors',
-        title: 'Errors',
-        type: 'collapse',
-        icon: 'error',
-        children: [
-          {
-            id: '404',
-            title: '404',
-            type: 'item',
-            url: '/pages/errors/error-404'
-          },
-          {
-            id: '500',
-            title: '500',
-            type: 'item',
-            url: '/pages/errors/error-500'
-          }
-        ]
-      },
-      {
-        id: 'maintenance',
-        title: 'Maintenance',
-        type: 'item',
-        icon: 'build',
-        url: '/pages/maintenance'
-      },
-      {
-        id: 'profile',
-        title: 'Profile',
-        type: 'item',
-        icon: 'person',
-        url: '/pages/profile'
-      },
       {
         title: 'Faq',
         type: 'item',

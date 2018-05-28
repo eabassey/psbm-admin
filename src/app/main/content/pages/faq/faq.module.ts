@@ -7,11 +7,13 @@ import { FuseSharedModule } from '@fuse/shared.module';
 
 import { FaqService } from './faq.service';
 import { FuseFaqComponent } from './faq.component';
+import { AdalGuard } from 'adal-angular4';
 
 const routes = [
     {
         path     : 'faq',
         component: FuseFaqComponent,
+        canActivate: [AdalGuard],
         resolve  : {
             faq: FaqService
         }
