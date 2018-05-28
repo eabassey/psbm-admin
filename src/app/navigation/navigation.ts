@@ -38,48 +38,48 @@ export const navigation = [
             id: 'dashboard',
             title: 'Dashboard',
             type: 'item',
-            url: '/apps/e-commerce/dashboard'
+            url: '/apps/persons/dashboard'
           },
           {
-            id: 'persons',
+            id: 'adults',
             title: 'Adult Members',
             type: 'item',
-            url: '/apps/e-commerce/products'
+            url: '/apps/persons/adults'
             // exactMatch: true
           },
           {
             id: 'youth',
             title: 'Youth Members',
             type: 'item',
-            url: '/apps/e-commerce/products2'
+            url: '/apps/persons/youth'
             // exactMatch: true
           },
           {
             id: 'children',
             title: 'Children',
             type: 'item',
-            url: '/apps/e-commerce/products3'
+            url: '/apps/persons/children'
             // exactMatch: true
           },
           {
             id: 'visitors',
             title: 'Visitors',
             type: 'item',
-            url: '/apps/e-commerce/products4'
+            url: '/apps/persons/visitors'
             // exactMatch: true
           },
           {
             id: 'converts',
             title: 'New Converts',
             type: 'item',
-            url: '/apps/e-commerce/products5'
+            url: '/apps/persons/converts'
             // exactMatch: true
           },
           {
             id: 'presbyters',
             title: 'Presbyters',
             type: 'item',
-            url: '/apps/e-commerce/products6',
+            url: '/apps/persons/presbyters',
             exactMatch: true
           }
         ]

@@ -39,21 +39,21 @@ const routes: Routes = [
     }
   },
   {
-    path: 'products',
+    path: 'adults',
     component: PersonsComponent,
     resolve: {
       data: PersonsService
     }
   },
   {
-    path: 'products/:id',
+    path: 'adults/:id',
     component: PersonComponent,
     resolve: {
       data: PersonService
     }
   },
   {
-    path: 'products/:id/:handle',
+    path: 'adults/:id/:handle',
     component: PersonComponent,
     resolve: {
       data: PersonService
@@ -94,4 +94,4 @@ const routes: Routes = [
   ],
   providers: [EcommerceDashboardService, PersonsService, PersonService]
 })
-export class FuseEcommerceModule {}
+export class PersonsModule {}

@@ -32,7 +32,7 @@
             </div>
             <!-- / SEARCH -->
 
-            <button mat-raised-button [routerLink]="'/apps/e-commerce/products/new'" class="add-product-button mat-white-bg my-12 mt-sm-0">
+            <button mat-raised-button [routerLink]="'/apps/persons/adults/new'" class="add-product-button mat-white-bg my-12 mt-sm-0">
                 <span>ADD NEW MEMBER</span>
             </button>
 
@@ -126,7 +126,7 @@
 
                 <mat-header-row *cdkHeaderRowDef="displayedColumns"></mat-header-row>
 
-                <mat-row *cdkRowDef="let product; columns: displayedColumns;" class="product" matRipple [routerLink]="'/apps/e-commerce/products/'+product.id+'/'+product.handle">
+                <mat-row *cdkRowDef="let product; columns: displayedColumns;" class="product" matRipple [routerLink]="'/apps/persons/adults/'+product.id+'/'+product.handle">
                 </mat-row>
 
             </mat-table>

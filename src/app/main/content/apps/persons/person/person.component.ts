@@ -105,7 +105,7 @@ export class PersonComponent implements OnInit, OnDestroy {
 
       // Change the location with new one
       this.location.go(
-        'apps/e-commerce/products/' + this.person.id + '/' + this.person.handle
+        'apps/persons/adults/' + this.person.id + '/' + this.person.handle
       );
     });
   }

@@ -17,12 +17,8 @@ const routes = [
       './dashboards/project/project.module#FuseProjectDashboardModule'
   },
   {
-    path: 'e-commerce',
-    loadChildren: './e-commerce/e-commerce.module#FuseEcommerceModule'
-  },
-  {
-    path: 'contacts',
-    loadChildren: './contacts/contacts.module#FuseContactsModule'
+    path: 'persons',
+    loadChildren: './persons/persons.module#PersonsModule'
   }
 ];
 
