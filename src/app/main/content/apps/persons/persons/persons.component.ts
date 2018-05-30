@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 
 import { merge, Observable, BehaviorSubject, fromEvent } from 'rxjs';
@@ -17,46 +17,29 @@ import { PersonsService } from './persons.service';
   animations: fuseAnimations
 })
 export class PersonsComponent implements OnInit {
-  dataSource: FilesDataSource | null;
-  displayedColumns = [
-    'select',
-    // 'image',
-    'name',
-    'category',
-    'price',
-    'quantity',
-    'active'
-  ];
-
+  displayedColumns = ['select', 'position', 'name', 'weight', 'symbol'];
+  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild('filter') filter: ElementRef;
   @ViewChild(MatSort) sort: MatSort;
 
-  selection = new SelectionModel<any>(true, []);
+  selection = new SelectionModel<PeriodicElement>(true, []);
   constructor(private personsService: PersonsService) {}
 
   ngOnInit() {
-    this.dataSource = new FilesDataSource(
-      this.personsService,
-      this.paginator,
-      this.sort
-    );
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }
 
-    fromEvent(this.filter.nativeElement, 'keyup')
-      .pipe(debounceTime(150), distinctUntilChanged())
-      .subscribe(() => {
-        if (!this.dataSource) {
-          return;
-        }
-
-        this.dataSource.filter = this.filter.nativeElement.value;
-      });
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.filteredData.length;
+    const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
@@ -64,110 +47,75 @@ export class PersonsComponent implements OnInit {
   masterToggle() {
     this.isAllSelected()
       ? this.selection.clear()
-      : this.dataSource.filteredData.forEach(row => this.selection.select(row));
+      : this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }
-
-export class FilesDataSource extends DataSource<any> {
-  _filterChange = new BehaviorSubject('');
-  _filteredDataChange = new BehaviorSubject('');
-
-  get filteredData(): any {
-    return this._filteredDataChange.value;
-  }
-
-  set filteredData(value: any) {
-    this._filteredDataChange.next(value);
-  }
-
-  get filter(): string {
-    return this._filterChange.value;
-  }
-
-  set filter(filter: string) {
-    this._filterChange.next(filter);
-  }
-
-  constructor(
-    private personsService: PersonsService,
-    private _paginator: MatPaginator,
-    private _sort: MatSort
-  ) {
-    super();
-    this.filteredData = this.personsService.persons;
-  }
-
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<any[]> {
-    const displayDataChanges = [
-      this.personsService.onPersonsChanged,
-      this._paginator.page,
-      this._filterChange,
-      this._sort.sortChange
-    ];
-
-    return merge(...displayDataChanges).pipe(
-      map(() => {
-        let data = this.personsService.persons.slice();
-
-        data = this.filterData(data);
-
-        this.filteredData = [...data];
-
-        data = this.sortData(data);
-
-        // Grab the page's slice of data.
-        const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-        return data.splice(startIndex, this._paginator.pageSize);
-      })
-    );
-  }
-
-  filterData(data) {
-    if (!this.filter) {
-      return data;
-    }
-    return FuseUtils.filterArrayByString(data, this.filter);
-  }
-
-  sortData(data): any[] {
-    if (!this._sort.active || this._sort.direction === '') {
-      return data;
-    }
-
-    return data.sort((a, b) => {
-      let propertyA: number | string = '';
-      let propertyB: number | string = '';
-
-      switch (this._sort.active) {
-        case 'id':
-          [propertyA, propertyB] = [a.id, b.id];
-          break;
-        case 'name':
-          [propertyA, propertyB] = [a.name, b.name];
-          break;
-        case 'categories':
-          [propertyA, propertyB] = [a.categories[0], b.categories[0]];
-          break;
-        case 'price':
-          [propertyA, propertyB] = [a.priceTaxIncl, b.priceTaxIncl];
-          break;
-        case 'quantity':
-          [propertyA, propertyB] = [a.quantity, b.quantity];
-          break;
-        case 'active':
-          [propertyA, propertyB] = [a.active, b.active];
-          break;
-      }
-
-      const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
-      const valueB = isNaN(+propertyB) ? propertyB : +propertyB;
-
-      return (
-        (valueA < valueB ? -1 : 1) * (this._sort.direction === 'asc' ? 1 : -1)
-      );
-    });
-  }
-
-  disconnect() {}
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
 }
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
+  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
+  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
+  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
+  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
+  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
+  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
+  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
+  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
+  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
+  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
+  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
+  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
+  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
+  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
+  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
+  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
+  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
+  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
+  { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
+  { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
+  { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
+  { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
+  { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
+  { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
+  { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
+  { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
+  { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
+  { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
+  { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' }
+];
