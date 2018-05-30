@@ -83,6 +83,42 @@ export const navigation = [
             exactMatch: true
           }
         ]
+      },
+      {
+        id: 'fixedassets',
+        title: 'Fixed Assets',
+        translate: 'NAV.ECOMMERCE',
+        type: 'collapse',
+        icon: 'commute',
+        children: [
+          {
+            id: 'assetList',
+            title: 'Assets List',
+            type: 'item',
+            url: '/'
+          },
+          {
+            id: 'addAsset',
+            title: 'Add an Asset',
+            type: 'item',
+            url: '//'
+            // exactMatch: true
+          },
+          {
+            id: 'assetCategories',
+            title: 'Asset Categories',
+            type: 'item',
+            url: '///'
+            // exactMatch: true
+          },
+          {
+            id: 'assetLocations',
+            title: 'Asset Locations',
+            type: 'item',
+            url: '////'
+            // exactMatch: true
+          }
+        ]
       }
     ]
   },
