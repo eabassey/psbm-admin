@@ -18,7 +18,7 @@ import { Location } from '@angular/common';
   animations: fuseAnimations
 })
 export class PersonComponent implements OnInit, OnDestroy {
-  person = new Person();
+  person: Person;
   onPersonChanged: Subscription;
   pageType: string;
   personForm: FormGroup;
@@ -35,7 +35,7 @@ export class PersonComponent implements OnInit, OnDestroy {
     this.onPersonChanged = this.personService.onPersonChanged.subscribe(
       person => {
         if (person) {
-          this.person = new Person(person);
+          this.person = person as Person;
           this.pageType = 'edit';
         } else {
           this.pageType = 'new';
@@ -54,30 +54,13 @@ export class PersonComponent implements OnInit, OnDestroy {
   createPersonForm() {
     return this.formBuilder.group({
       id: [this.person.id],
-      name: [this.person.name],
-      handle: [this.person.handle],
-      description: [this.person.description],
-      categories: [this.person.categories],
-      tags: [this.person.tags],
-      images: [this.person.images],
-      priceTaxExcl: [this.person.priceTaxExcl],
-      priceTaxIncl: [this.person.priceTaxIncl],
-      taxRate: [this.person.taxRate],
-      comparedPrice: [this.person.comparedPrice],
-      quantity: [this.person.quantity],
-      sku: [this.person.sku],
-      width: [this.person.width],
-      height: [this.person.height],
-      depth: [this.person.depth],
-      weight: [this.person.weight],
-      extraShippingFee: [this.person.extraShippingFee],
-      active: [this.person.active]
+      fistName: [this.person.firstName],
+      lastName: [this.person.lastName]
     });
   }
 
   savePerson() {
     const data = this.personForm.getRawValue();
-    data.handle = FuseUtils.handleize(data.name);
     this.personService.savePerson(data).then(() => {
       // Trigger the subscription with new data
       this.personService.onPersonChanged.next(data);
@@ -104,9 +87,13 @@ export class PersonComponent implements OnInit, OnDestroy {
       });
 
       // Change the location with new one
-      this.location.go(
-        'apps/persons/adults/' + this.person.id + '/' + this.person.handle
-      );
+      // this.location.go(
+      //   'apps/persons/adults/' + this.person.id + '/' + this.person.handle
+      // );
     });
   }
+
+  removeGroup(person: Person, group: string) {}
+
+  addGroup(group) {}
 }
