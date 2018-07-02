@@ -17,8 +17,8 @@ const routes = [
       './dashboards/project/project.module#FuseProjectDashboardModule'
   },
   {
-    path: 'persons',
-    loadChildren: './persons/persons.module#PersonsModule'
+    path: 'profiles',
+    loadChildren: './psbm/profiles.module#ProfilesModule'
   }
 ];
 

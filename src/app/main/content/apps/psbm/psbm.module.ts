@@ -25,10 +25,10 @@ import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 
 import { FuseEcommerceDashboardComponent } from './dashboard/dashboard.component';
 import { EcommerceDashboardService } from './dashboard/dashboard.service';
-import { PersonsComponent } from './persons/persons.component';
-import { PersonsService } from './persons/persons.service';
 import { PersonComponent } from './person/person.component';
 import { PersonService } from './person/person.service';
+import { ProfilesComponent } from './profiles/profiles.component';
+import { ProfilesService } from './profiles/profiles.service';
 
 const routes: Routes = [
   {
@@ -40,9 +40,9 @@ const routes: Routes = [
   },
   {
     path: 'adults',
-    component: PersonsComponent,
+    component: ProfilesComponent,
     resolve: {
-      data: PersonsService
+      data: ProfilesService
     }
   },
   {
@@ -64,7 +64,7 @@ const routes: Routes = [
 @NgModule({
   declarations: [
     FuseEcommerceDashboardComponent,
-    PersonsComponent,
+    ProfilesComponent,
     PersonComponent
   ],
   imports: [
@@ -92,6 +92,6 @@ const routes: Routes = [
     FuseSharedModule,
     FuseWidgetModule
   ],
-  providers: [EcommerceDashboardService, PersonsService, PersonService]
+  providers: [EcommerceDashboardService, ProfilesService, PersonService]
 })
-export class PersonsModule {}
+export class PsbmModule {}

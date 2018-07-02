@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
-export class PersonsService implements Resolve<any> {
+export class ProfilesService implements Resolve<any> {
   persons: any[];
   onPersonsChanged: BehaviorSubject<any> = new BehaviorSubject({});
 

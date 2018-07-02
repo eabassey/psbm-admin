@@ -8,23 +8,23 @@ import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseUtils } from '@fuse/utils';
 
-import { PersonsService } from './persons.service';
+import { ProfilesService } from './profiles.service';
 import { Person } from '../person/person.model';
 
 @Component({
-  selector: 'fuse-persons',
-  templateUrl: './persons.component.html',
-  styleUrls: ['./persons.component.scss'],
+  selector: 'fuse-profiles',
+  templateUrl: './profiles.component.html',
+  styleUrls: ['./profiles.component.scss'],
   animations: fuseAnimations
 })
-export class PersonsComponent implements OnInit {
+export class ProfilesComponent implements OnInit {
   displayedColumns = ['select', 'firstName', 'lastName'];
   dataSource = new MatTableDataSource<Partial<Person>>(PERSONS);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   selection = new SelectionModel<Partial<Person>>(true, []);
-  constructor(private personsService: PersonsService) {}
+  constructor(private profilesService: ProfilesService) {}
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
