@@ -46,41 +46,6 @@ export const navigation = [
             type: 'item',
             url: '/apps/persons/adults'
             // exactMatch: true
-          },
-          {
-            id: 'youth',
-            title: 'Youth Members',
-            type: 'item',
-            url: '/apps/persons/youth'
-            // exactMatch: true
-          },
-          {
-            id: 'children',
-            title: 'Children',
-            type: 'item',
-            url: '/apps/persons/children'
-            // exactMatch: true
-          },
-          {
-            id: 'visitors',
-            title: 'Visitors',
-            type: 'item',
-            url: '/apps/persons/visitors'
-            // exactMatch: true
-          },
-          {
-            id: 'converts',
-            title: 'New Converts',
-            type: 'item',
-            url: '/apps/persons/converts'
-            // exactMatch: true
-          },
-          {
-            id: 'presbyters',
-            title: 'Presbyters',
-            type: 'item',
-            url: '/apps/persons/presbyters',
-            exactMatch: true
           }
         ]
       }

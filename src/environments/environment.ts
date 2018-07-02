@@ -7,7 +7,7 @@ export const environment = {
   hmr: false,
   config: {
     tenant: 'a32bca87-da57-4c87-ae29-c2ca192e3807',
-    clientId: '64617d40-7c8a-40ee-9c74-f0fc7fb9a7df'
+    clientId: 'ae8aa486-54f3-4c89-bee0-4ca58e53cb44'
   }
 };
 
