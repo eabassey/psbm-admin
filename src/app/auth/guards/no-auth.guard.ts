@@ -7,7 +7,7 @@ export class NoAuthGuard implements CanActivate {
   constructor(private adalService: AdalService, private router: Router) {}
   canActivate() {
     if (this.adalService.userInfo.authenticated) {
-      this.router.navigate(['/apps/dashboards/analytics']);
+      this.router.navigate(['/apps/psbm/dashboard']);
       return false;
     }
     return true;

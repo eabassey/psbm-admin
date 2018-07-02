@@ -1,15 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { DataSource, SelectionModel } from '@angular/cdk/collections';
 
-import { merge, Observable, BehaviorSubject, fromEvent } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
-
 import { fuseAnimations } from '@fuse/animations';
-import { FuseUtils } from '@fuse/utils';
 
 import { ProfilesService } from './profiles.service';
-import { Person } from '../person/person.model';
 
 @Component({
   selector: 'fuse-profiles',
@@ -19,11 +14,11 @@ import { Person } from '../person/person.model';
 })
 export class ProfilesComponent implements OnInit {
   displayedColumns = ['select', 'firstName', 'lastName'];
-  dataSource = new MatTableDataSource<Partial<Person>>(PERSONS);
+  dataSource = new MatTableDataSource<Partial<any>>(PERSONS);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  selection = new SelectionModel<Partial<Person>>(true, []);
+  selection = new SelectionModel<Partial<any>>(true, []);
   constructor(private profilesService: ProfilesService) {}
 
   ngOnInit() {
@@ -52,7 +47,7 @@ export class ProfilesComponent implements OnInit {
   }
 }
 
-const PERSONS: Partial<Person>[] = [
+const PERSONS: Partial<any>[] = [
   { firstName: 'Yae', lastName: 'Pert' },
   { firstName: 'Henry', lastName: 'Oduro' }
 ];

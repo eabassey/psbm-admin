@@ -7,29 +7,8 @@ export const navigation = [
     icon: 'apps',
     children: [
       {
-        id: 'dashboards',
-        title: 'Dashboards',
-        translate: 'NAV.DASHBOARDS',
-        type: 'collapse',
-        icon: 'dashboard',
-        children: [
-          {
-            id: 'analytics',
-            title: 'Analytics',
-            type: 'item',
-            url: '/apps/dashboards/analytics'
-          },
-          {
-            id: 'project',
-            title: 'Project',
-            type: 'item',
-            url: '/apps/dashboards/project'
-          }
-        ]
-      },
-      {
         id: 'membership',
-        title: 'Membership',
+        title: 'PSBM',
         translate: 'NAV.ECOMMERCE',
         type: 'collapse',
         icon: 'people',
@@ -38,13 +17,13 @@ export const navigation = [
             id: 'dashboard',
             title: 'Dashboard',
             type: 'item',
-            url: '/apps/persons/dashboard'
+            url: '/apps/psbm/dashboard'
           },
           {
-            id: 'adults',
+            id: 'profiles',
             title: 'Adult Members',
             type: 'item',
-            url: '/apps/persons/adults'
+            url: '/apps/psbm/profiles'
             // exactMatch: true
           }
         ]

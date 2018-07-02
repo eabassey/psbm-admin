@@ -25,8 +25,6 @@ import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 
 import { FuseEcommerceDashboardComponent } from './dashboard/dashboard.component';
 import { EcommerceDashboardService } from './dashboard/dashboard.service';
-import { PersonComponent } from './person/person.component';
-import { PersonService } from './person/person.service';
 import { ProfilesComponent } from './profiles/profiles.component';
 import { ProfilesService } from './profiles/profiles.service';
 
@@ -39,34 +37,16 @@ const routes: Routes = [
     }
   },
   {
-    path: 'adults',
+    path: 'profiles',
     component: ProfilesComponent,
     resolve: {
       data: ProfilesService
-    }
-  },
-  {
-    path: 'adults/:id',
-    component: PersonComponent,
-    resolve: {
-      data: PersonService
-    }
-  },
-  {
-    path: 'adults/:id/:handle',
-    component: PersonComponent,
-    resolve: {
-      data: PersonService
     }
   }
 ];
 
 @NgModule({
-  declarations: [
-    FuseEcommerceDashboardComponent,
-    ProfilesComponent,
-    PersonComponent
-  ],
+  declarations: [FuseEcommerceDashboardComponent, ProfilesComponent],
   imports: [
     RouterModule.forChild(routes),
 
@@ -92,6 +72,6 @@ const routes: Routes = [
     FuseSharedModule,
     FuseWidgetModule
   ],
-  providers: [EcommerceDashboardService, ProfilesService, PersonService]
+  providers: [EcommerceDashboardService, ProfilesService]
 })
 export class PsbmModule {}
