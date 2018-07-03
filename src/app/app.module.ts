@@ -19,6 +19,10 @@ import { AppStoreModule } from './store/store.module';
 
 import { AdalService, AdalGuard, AdalInterceptor } from 'adal-angular4';
 import { NoAuthGuard } from './auth/guards/no-auth.guard';
+import { environment } from 'environments/environment';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 const appRoutes: Routes = [
   {
@@ -62,6 +66,9 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+
+    AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
 
     TranslateModule.forRoot(),
     InMemoryWebApiModule.forRoot(FuseFakeDbService, {

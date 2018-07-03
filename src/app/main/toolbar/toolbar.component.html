@@ -18,9 +18,9 @@
                 </div>
             </div>
 
-            <div class="px-8 px-mat-16">
+            <!-- <div class="px-8 px-mat-16">
                 <fuse-shortcuts [navigation]="navigation"></fuse-shortcuts>
-            </div>
+            </div> -->
 
         </div>
 
@@ -53,20 +53,20 @@
 
             </mat-menu>
 
-            <div class="toolbar-separator"></div>
+            <!-- <div class="toolbar-separator"></div> -->
 
-            <fuse-search-bar (onInput)="search($event)"></fuse-search-bar>
+            <!-- <fuse-search-bar (onInput)="search($event)"></fuse-search-bar> -->
 
-            <div class="toolbar-separator"></div>
+            <!-- <div class="toolbar-separator"></div> -->
 
-            <button mat-button fxHide fxShow.gt-xs class="language-button" [matMenuTriggerFor]="languageMenu">
+            <!-- <button mat-button fxHide fxShow.gt-xs class="language-button" [matMenuTriggerFor]="languageMenu">
                 <div fxLayout="row" fxLayoutAlign="center center">
                     <img class="flag mr-8" [src]="'assets/images/flags/'+selectedLanguage.flag+'.png'">
                     <span class="iso text-uppercase">{{selectedLanguage.id}}</span>
                 </div>
-            </button>
+            </button> -->
 
-            <mat-menu #languageMenu="matMenu" [overlapTrigger]="false">
+            <!-- <mat-menu #languageMenu="matMenu" [overlapTrigger]="false">
 
                 <button mat-menu-item *ngFor="let lang of languages" (click)="setLanguage(lang)">
                     <div fxLayout="row" fxLayoutAlign="start center">
@@ -81,7 +81,7 @@
                     </div>
                 </button>
 
-            </mat-menu>
+            </mat-menu> -->
 
             <div class="toolbar-separator" fxHide fxShow.gt-xs></div>
 

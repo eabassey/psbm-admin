@@ -16,7 +16,7 @@
                     people
                 </mat-icon>
                 <span class="logo-text h1" *fuseIfOnDom [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
-                    Members
+                    PSBM User Profiles
                 </span>
             </div>
             <!-- / APP TITLE -->
@@ -41,7 +41,7 @@
 
         <!-- CONTENT CARD -->
         <div class="content-card mat-white-bg">
-            <table mat-table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
+            <table mat-table [dataSource]="data" matSort [@animateStagger]="{value:'50'}" fusePerfectScrollbar>
 
                 <!-- Checkbox Column -->
                 <ng-container matColumnDef="select">
@@ -55,16 +55,46 @@
                     </td>
                 </ng-container>
 
+                <!-- Email Column -->
+                <ng-container matColumnDef="email">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.email}} </td>
+                </ng-container>
+
                 <!-- First Name Column -->
                 <ng-container matColumnDef="firstName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.firstName}} </td>
                 </ng-container>
 
                 <!-- Last Name Column -->
                 <ng-container matColumnDef="lastName">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
-                    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.lastName}} </td>
+                </ng-container>
+
+                <!-- Gender Column -->
+                <ng-container matColumnDef="gender">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.gender}} </td>
+                </ng-container>
+
+                <!-- Country Column -->
+                <ng-container matColumnDef="country">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.country}} </td>
+                </ng-container>
+
+                <!-- Mobile Phone Colume -->
+                <ng-container matColumnDef="mobilePhone">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile Phone </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.mobilePhone}} </td>
+                </ng-container>
+
+                <!-- Payment Status Column -->
+                <ng-container matColumnDef="paymentStatus">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Payment Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.paymentStatus}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

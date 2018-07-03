@@ -21,7 +21,7 @@ export const navigation = [
           },
           {
             id: 'profiles',
-            title: 'Adult Members',
+            title: 'Profiles',
             type: 'item',
             url: '/apps/psbm/profiles'
             // exactMatch: true

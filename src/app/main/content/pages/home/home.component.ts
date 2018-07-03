@@ -1,4 +1,3 @@
-
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FuseConfigService } from '@fuse/services/config.service';
 import { AdalService } from 'adal-angular4';
@@ -7,7 +6,7 @@ import { AdalService } from 'adal-angular4';
   selector: 'fuse-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  encapsulation: ViewEncapsulation.Emulated
+  encapsulation: ViewEncapsulation.None
 })
 export class HomeComponent implements OnInit {
   constructor(

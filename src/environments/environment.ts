@@ -8,6 +8,14 @@ export const environment = {
   config: {
     tenant: 'a32bca87-da57-4c87-ae29-c2ca192e3807',
     clientId: 'ae8aa486-54f3-4c89-bee0-4ca58e53cb44'
+  },
+  firebase: {
+    apiKey: 'AIzaSyBdM-9G3pVMHB4fwi4SLvuKHMcZQA0GdLw',
+    authDomain: 'bspm-auth.firebaseapp.com',
+    databaseURL: 'https://bspm-auth.firebaseio.com',
+    projectId: 'bspm-auth',
+    storageBucket: 'bspm-auth.appspot.com',
+    messagingSenderId: '407062452144'
   }
 };
 

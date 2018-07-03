@@ -5,6 +5,10 @@ import { DataSource, SelectionModel } from '@angular/cdk/collections';
 import { fuseAnimations } from '@fuse/animations';
 
 import { ProfilesService } from './profiles.service';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of, merge } from 'rxjs';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { startWith, switchMap, map, catchError, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'fuse-profiles',
@@ -13,110 +17,101 @@ import { ProfilesService } from './profiles.service';
   animations: fuseAnimations
 })
 export class ProfilesComponent implements OnInit {
-  displayedColumns = ['select', 'firstName', 'lastName'];
-  dataSource = new MatTableDataSource<Partial<any>>(PERSONS);
+  displayedColumns = [
+    'email',
+    'firstName',
+    'lastName',
+    'gender',
+    'country',
+    'mobilePhone',
+    'paymentStatus'
+  ];
+  fsSource: FireStoreSource | null;
+  data: any[] = [];
+  // dataSource = new MatTableDataSource<Partial<any>>(PERSONS);
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  resultsLength = 0;
+  isLoadingResults = true;
+  isRateLimitReached = false;
+
   selection = new SelectionModel<Partial<any>>(true, []);
-  constructor(private profilesService: ProfilesService) {}
+  constructor(private db: AngularFirestore) {}
 
   ngOnInit() {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
+    this.fsSource = new FireStoreSource(this.db);
+    // If the user changes the sort order, reset back to the first page.
+    this.sort.sortChange.subscribe(() => (this.paginator.pageIndex = 0));
+    merge(this.sort.sortChange, this.paginator.page)
+      .pipe(
+        startWith({}),
+        switchMap(() => {
+          this.isLoadingResults = true;
+          return this.fsSource.getProfiles();
+        }),
+        map(data => {
+          // Flip flag to show that loading has finished.
+          this.isLoadingResults = false;
+          this.isRateLimitReached = false;
+          this.resultsLength = data.length;
+
+          return data;
+        }),
+        catchError(() => {
+          this.isLoadingResults = false;
+          // Catch if the GitHub API has reached its rate limit. Return empty data.
+          this.isRateLimitReached = true;
+          return of([]);
+        })
+      )
+      .subscribe(data => (this.data = data));
   }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
-    this.dataSource.filter = filterValue;
+    // this.dataSource.filter = filterValue;
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    // const numSelected = this.selection.selected.length;
+    // const numRows = this.dataSource.data.length;
+    // return numSelected === numRows;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected()
-      ? this.selection.clear()
-      : this.dataSource.data.forEach(row => this.selection.select(row));
+    // this.isAllSelected()
+    //   ? this.selection.clear()
+    //   : this.dataSource.data.forEach(row => this.selection.select(row));
   }
 }
 
-const PERSONS: Partial<any>[] = [
-  { firstName: 'Yae', lastName: 'Pert' },
-  { firstName: 'Henry', lastName: 'Oduro' }
-];
-// export interface PeriodicElement {
-//   name: string;
-//   position: number;
-//   weight: number;
-//   symbol: string;
-// }
+interface UserProfileApi {
+  items: any[];
+  total_count: number;
+}
 
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-//   { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-//   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-//   { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-//   { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-//   { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-//   { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-//   { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-//   { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-//   { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-//   { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-//   { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-//   { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-//   { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-//   { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-//   { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-//   { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-//   { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-//   { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-//   { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-//   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-//   { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-//   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-//   { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-//   { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-//   { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-//   { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-//   { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-//   { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-//   { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-//   { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-//   { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-//   { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-//   { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-//   { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-//   { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-//   { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-//   { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-//   { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-//   { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' },
-//   { position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H' },
-//   { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He' },
-//   { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li' },
-//   { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be' },
-//   { position: 5, name: 'Boron', weight: 10.811, symbol: 'B' },
-//   { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C' },
-//   { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N' },
-//   { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O' },
-//   { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F' },
-//   { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne' },
-//   { position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na' },
-//   { position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg' },
-//   { position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al' },
-//   { position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si' },
-//   { position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P' },
-//   { position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S' },
-//   { position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl' },
-//   { position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar' },
-//   { position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K' },
-//   { position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca' }
+/** An example database that the data source uses to retrieve data for the table. */
+export class FireStoreSource {
+  constructor(private db: AngularFirestore) {}
+
+  getProfiles(): Observable<any> {
+    // const href = 'https://api.github.com/search/issues';
+    // const requestUrl = `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page +
+    //   1}`;
+
+    // return this.http.get<any>(requestUrl);
+    return this.db
+      .collection('/users')
+      .valueChanges()
+      .pipe(tap(console.log));
+  }
+}
+
+// const PERSONS: Partial<any>[] = [
+//   { firstName: 'Yae', lastName: 'Pert' },
+//   { firstName: 'Henry', lastName: 'Oduro' }
 // ];
