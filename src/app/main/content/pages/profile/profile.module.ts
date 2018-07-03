@@ -10,11 +10,13 @@ import { FuseProfileComponent } from './profile.component';
 import { FuseProfileTimelineComponent } from './tabs/timeline/timeline.component';
 import { FuseProfileAboutComponent } from './tabs/about/about.component';
 import { FuseProfilePhotosVideosComponent } from './tabs/photos-videos/photos-videos.component';
+import { AdalGuard } from 'adal-angular4';
 
 const routes = [
     {
         path     : 'profile',
         component: FuseProfileComponent,
+        canActivate: [AdalGuard],
         resolve  : {
             profile: ProfileService
         }

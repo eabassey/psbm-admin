@@ -18,18 +18,19 @@ import { FuseMainModule } from './main/main.module';
 import { AppStoreModule } from './store/store.module';
 
 import { AdalService, AdalGuard, AdalInterceptor } from 'adal-angular4';
+import { NoAuthGuard } from './auth/guards/no-auth.guard';
+import { environment } from 'environments/environment';
+
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'pages/home',
     // redirectTo: 'apps/dashboards/analytics',
+    // canActivate: [NoAuthGuard],
     pathMatch: 'full'
-    // canActivate: [AdalGuard]
-  },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomeModule'
   },
   {
     path: 'apps',
@@ -38,8 +39,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'pages',
-    loadChildren: './main/content/pages/pages.module#FusePagesModule',
-    canActivate: [AdalGuard]
+    loadChildren: './main/content/pages/pages.module#FusePagesModule'
+    // canActivate: [AdalGuard]
   },
   {
     path: 'services',
@@ -54,7 +55,7 @@ const appRoutes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/home'
+    redirectTo: 'pages/home'
   }
 ];
 
@@ -65,6 +66,9 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(appRoutes),
+
+    AngularFireModule.initializeApp(environment.firebase), // imports firebase/app needed for everything
+    AngularFirestoreModule, // imports firebase/firestore, only needed for database features
 
     TranslateModule.forRoot(),
     InMemoryWebApiModule.forRoot(FuseFakeDbService, {
@@ -79,7 +83,7 @@ const appRoutes: Routes = [
     AppStoreModule,
     FuseMainModule
   ],
-  providers: [AdalService, AdalGuard],
+  providers: [AdalService, AdalGuard, NoAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
