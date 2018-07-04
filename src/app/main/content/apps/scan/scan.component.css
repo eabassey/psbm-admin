@@ -1,0 +1,5 @@
+.scan-video {
+  max-height: 50%;
+  width: 50px;
+  /* object-fit: contain; */
+}

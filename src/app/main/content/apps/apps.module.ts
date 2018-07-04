@@ -9,6 +9,10 @@ const routes = [
   {
     path: 'psbm',
     loadChildren: './psbm/psbm.module#PsbmModule'
+  },
+  {
+    path: 'scan',
+    loadChildren: './scan/scan.module#ScanModule'
   }
 ];
 

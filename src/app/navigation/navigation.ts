@@ -27,6 +27,21 @@ export const navigation = [
             // exactMatch: true
           }
         ]
+      },
+      {
+        id: 'scan',
+        title: 'Code Scanner',
+        translate: 'NAV.ECOMMERCE',
+        type: 'collapse',
+        icon: 'people',
+        children: [
+          {
+            id: 'scann',
+            title: 'Scanner',
+            type: 'item',
+            url: '/apps/scan'
+          }
+        ]
       }
     ]
   },
