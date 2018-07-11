@@ -14,7 +14,8 @@ import {
   MatSelectModule,
   MatSortModule,
   MatTableModule,
-  MatTabsModule
+  MatTabsModule,
+  MatDialogModule
 } from '@angular/material';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -26,6 +27,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DashboardService } from './dashboard/dashboard.service';
 import { ProfilesComponent } from './profiles/profiles.component';
 import { ProfilesService } from './profiles/profiles.service';
+import { EventsDialogComponent } from './profiles/events-dialog/events-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
@@ -45,7 +48,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [DashboardComponent, ProfilesComponent],
+  declarations: [DashboardComponent, ProfilesComponent, EventsDialogComponent],
   imports: [
     RouterModule.forChild(routes),
 
@@ -57,6 +60,7 @@ const routes: Routes = [
     MatInputModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatDialogModule,
     MatRippleModule,
     MatSelectModule,
     MatSortModule,
@@ -68,6 +72,7 @@ const routes: Routes = [
     FuseSharedModule,
     FuseWidgetModule
   ],
+  entryComponents: [EventsDialogComponent],
   providers: [DashboardService, ProfilesService]
 })
 export class PsbmModule {}

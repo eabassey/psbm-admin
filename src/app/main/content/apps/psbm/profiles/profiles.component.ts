@@ -4,11 +4,11 @@ import { DataSource, SelectionModel } from '@angular/cdk/collections';
 
 import { fuseAnimations } from '@fuse/animations';
 
-import { ProfilesService } from './profiles.service';
-import { HttpClient } from '@angular/common/http';
 import { Observable, of, merge } from 'rxjs';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, DocumentChangeType } from 'angularfire2/firestore';
 import { startWith, switchMap, map, catchError, tap } from 'rxjs/operators';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { EventsDialogComponent } from './events-dialog/events-dialog.component';
 
 @Component({
   selector: 'fuse-profiles',
@@ -37,7 +37,7 @@ export class ProfilesComponent implements OnInit {
   isRateLimitReached = false;
 
   selection = new SelectionModel<Partial<any>>(true, []);
-  constructor(private db: AngularFirestore) {}
+  constructor(private db: AngularFirestore, public dialog: MatDialog) {}
 
   ngOnInit() {
     this.fsSource = new FireStoreSource(this.db);
@@ -87,11 +87,17 @@ export class ProfilesComponent implements OnInit {
     //   ? this.selection.clear()
     //   : this.dataSource.data.forEach(row => this.selection.select(row));
   }
-}
 
-interface UserProfileApi {
-  items: any[];
-  total_count: number;
+  openDialog(data): void {
+    console.log('The data: ', data);
+    const dialogRef = this.dialog.open(EventsDialogComponent, {
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
 }
 
 /** An example database that the data source uses to retrieve data for the table. */
@@ -99,19 +105,18 @@ export class FireStoreSource {
   constructor(private db: AngularFirestore) {}
 
   getProfiles(): Observable<any> {
-    // const href = 'https://api.github.com/search/issues';
-    // const requestUrl = `${href}?q=repo:angular/material2&sort=${sort}&order=${order}&page=${page +
-    //   1}`;
-
-    // return this.http.get<any>(requestUrl);
     return this.db
       .collection('/users')
-      .valueChanges()
-      .pipe(tap(console.log));
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(action => {
+            const id = action.payload.doc.id;
+            const data = action.payload.doc.data();
+            return { ...data };
+          });
+        }),
+        tap(console.log)
+      );
   }
 }
-
-// const PERSONS: Partial<any>[] = [
-//   { firstName: 'Yae', lastName: 'Pert' },
-//   { firstName: 'Henry', lastName: 'Oduro' }
-// ];

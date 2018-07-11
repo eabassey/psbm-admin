@@ -52,12 +52,6 @@ export const navigation = [
     icon: 'pages',
     children: [
       {
-        title: 'Faq',
-        type: 'item',
-        icon: 'help',
-        url: '/pages/faq'
-      },
-      {
         title: 'Knowledge Base',
         type: 'item',
         icon: 'import_contacts',
