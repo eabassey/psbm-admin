@@ -10,12 +10,12 @@ export const environment = {
     clientId: 'ae8aa486-54f3-4c89-bee0-4ca58e53cb44'
   },
   firebase: {
-    apiKey: 'AIzaSyBdM-9G3pVMHB4fwi4SLvuKHMcZQA0GdLw',
-    authDomain: 'bspm-auth.firebaseapp.com',
-    databaseURL: 'https://bspm-auth.firebaseio.com',
-    projectId: 'bspm-auth',
-    storageBucket: 'bspm-auth.appspot.com',
-    messagingSenderId: '407062452144'
+    apiKey: 'AIzaSyAreBPqyHq06dpcfcgdAATLgBklVGOjjpI',
+    authDomain: 'psbm-dubai.firebaseapp.com',
+    databaseURL: 'https://psbm-dubai.firebaseio.com',
+    projectId: 'psbm-dubai',
+    storageBucket: 'psbm-dubai.appspot.com',
+    messagingSenderId: '127812342655'
   }
 };
 
