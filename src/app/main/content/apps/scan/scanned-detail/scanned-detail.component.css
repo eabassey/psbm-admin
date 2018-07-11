@@ -1,0 +1,38 @@
+.dropdown {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.active {
+  font-weight: bolder;
+}
+
+.key {
+  text-align: left;
+}
+
+.value {
+  text-align: right;
+  font-weight: bold;
+}
+
+.reservation-date ul {
+  padding: 10px 10px;
+}
+
+.price-label {
+  font-size: 20px;
+}
+
+.confirm-message {
+  margin-top: 70px;
+}
+
+.detail {
+  font-weight: 500;
+  margin-left: 20px;
+}
+
+.section-reservation-page {
+  margin-top: 25px;
+}

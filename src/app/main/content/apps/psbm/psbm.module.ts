@@ -14,26 +14,28 @@ import {
   MatSelectModule,
   MatSortModule,
   MatTableModule,
-  MatTabsModule
+  MatTabsModule,
+  MatDialogModule
 } from '@angular/material';
 
 import { NgxChartsModule } from '@swimlane/ngx-charts';
-import { AgmCoreModule } from '@agm/core';
 
 import { FuseSharedModule } from '@fuse/shared.module';
 import { FuseWidgetModule } from '@fuse/components/widget/widget.module';
 
-import { FuseEcommerceDashboardComponent } from './dashboard/dashboard.component';
-import { EcommerceDashboardService } from './dashboard/dashboard.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { DashboardService } from './dashboard/dashboard.service';
 import { ProfilesComponent } from './profiles/profiles.component';
 import { ProfilesService } from './profiles/profiles.service';
+import { EventsDialogComponent } from './profiles/events-dialog/events-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const routes: Routes = [
   {
     path: 'dashboard',
-    component: FuseEcommerceDashboardComponent,
+    component: DashboardComponent,
     resolve: {
-      data: EcommerceDashboardService
+      data: DashboardService
     }
   },
   {
@@ -46,7 +48,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [FuseEcommerceDashboardComponent, ProfilesComponent],
+  declarations: [DashboardComponent, ProfilesComponent, EventsDialogComponent],
   imports: [
     RouterModule.forChild(routes),
 
@@ -58,6 +60,7 @@ const routes: Routes = [
     MatInputModule,
     MatCheckboxModule,
     MatPaginatorModule,
+    MatDialogModule,
     MatRippleModule,
     MatSelectModule,
     MatSortModule,
@@ -65,13 +68,11 @@ const routes: Routes = [
     MatTabsModule,
 
     NgxChartsModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD81ecsCj4yYpcXSLFcYU97PvRsE_X8Bx8'
-    }),
 
     FuseSharedModule,
     FuseWidgetModule
   ],
-  providers: [EcommerceDashboardService, ProfilesService]
+  entryComponents: [EventsDialogComponent],
+  providers: [DashboardService, ProfilesService]
 })
 export class PsbmModule {}

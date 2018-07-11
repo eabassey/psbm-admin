@@ -1,0 +1,154 @@
+<section class="section-reservation-page bg-white">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>SCANNED DETAILS</h2>
+      </div>
+    </div>
+    <div *ngIf="selectedBooking$ | async as booking" class="reservation-page">
+      <button class="btn btn-info" (click)="resetDetails()">Reset</button>
+
+      <div class="row">
+
+        <div class="col-md-12">
+          <!-- CONTENT -->
+          <div class="reservation_content">
+            <hr />
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Personal Info</h4>
+                <div>
+                  <span>Title:</span>
+                  <span class="detail">{{booking?.title}}</span>
+                </div>
+                <div>
+                  <span>First Names:</span>
+                  <span class="detail">{{booking?.firstNames}}</span>
+                </div>
+                <div>
+                  <span>Last Name:</span>
+                  <span class="detail">{{booking?.lastName}}</span>
+                </div>
+                <div>
+                  <span>Email Address:</span>
+                  <span class="detail">{{booking?.email}}</span>
+                </div>
+                <div>
+                  <span>Gender:</span>
+                  <span class="detail">{{booking?.gender}}</span>
+                </div>
+                <div>
+                  <span>Country:</span>
+                  <span class="detail">{{booking?.country}}</span>
+                </div>
+                <div>
+                  <span>ID / Passport:</span>
+                  <span class="detail">{{booking?.idNumber}}</span>
+                </div>
+                <div>
+                  <span>Mobile Phone:</span>
+                  <span class="detail">{{booking?.mobilePhone}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h4>Conference Info</h4>
+                <div>
+                  <span>Name of Church:</span>
+                  <span class="detail">{{booking?.nameOfChurch}}</span>
+                </div>
+                <div>
+                  <span>Track Sessions:</span>
+                  <span>
+                    <ul>
+                      <li class="detail" *ngFor="let session of booking.trackSessions">{{session}}</li>
+                    </ul>
+                  </span>
+                </div>
+                <div>
+                  <span>Include In Business?:</span>
+                  <span class="detail">{{booking?.includeInBusiness}}</span>
+                </div>
+                <div>
+                  <span>Expertise/Occupation:</span>
+                  <span class="detail">{{booking?.expertise}}</span>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Accommodation Info</h4>
+                <div>
+                  <span>Arrival Date:</span>
+                  <span class="detail">{{booking?.arrivalDate | date: 'fullDate'}}</span>
+                </div>
+                <div>
+                  <span>Departure Date:</span>
+                  <span class="detail">{{booking?.departureDate | date: 'fullDate'}}</span>
+                </div>
+                <div>
+                  <span>Day 1 Meal:</span>
+                  <span class="detail">{{booking?.meal1}} </span>
+                </div>
+                <div>
+                  <span>Day 2 Meal:</span>
+                  <span class="detail">{{booking?.meal2}} </span>
+                </div>
+                <div>
+                  <span>Day 3 Meal:</span>
+                  <span class="detail">{{booking?.meal3}} </span>
+                </div>
+                <div>
+                  <span>Other Info:</span>
+                  <span class="detail">{{booking?.otherInfo}}</span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h4>Hotel Choice Info</h4>
+                <div>
+                  <span>Package Choice:</span>
+                  <span class="detail">{{booking?.packageChoice}}</span>
+                </div>
+                <div>
+                  <span>Hotel Choice 1:</span>
+                  <span class="detail">{{booking?.hotelChoice1}}</span>
+                </div>
+                <div>
+                  <span>Hotel Choice 2:</span>
+                  <span class="detail">{{booking?.hotelChoice2}}</span>
+                </div>
+                <div>
+                  <span>Hotel Choice 3:</span>
+                  <span class="detail">{{booking?.hotelChoice3}}</span>
+                </div>
+              </div>
+            </div>
+            <hr />
+            <div class="row">
+              <div class="col-md-6">
+                <h4>Tour Info</h4>
+                <div>
+                  Tours Included:
+                  <ul>
+                    <li class="detail" *ngFor="let tour of booking.tours">{{tour}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <h3>SUMMARY</h3>
+                <h4>
+                  <span>Total Price: </span>
+                  <span class="detail">${{booking?.bookingPrice}}</span>
+                </h4>
+                <span>Meals + Tours + (number of nights X hotel price)</span>
+              </div>
+            </div>
+          </div>
+          <!-- END / CONTENT -->
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</section>
